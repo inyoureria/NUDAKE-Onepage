@@ -1,10 +1,5 @@
 @import url(reset.css);
 
-* {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
 html{scroll-behavior: smooth;}
 
 body{
@@ -246,44 +241,91 @@ h2 p{
   height: 1051px;
   background-color: #A4A84E;
   margin: auto;
+  position: relative;
 }
+
+/* 서울지도 */
 .s1-inner{
   width: inherit;
   height: 933px;
   margin: auto;
   background: url(../image/seoulmap.png) no-repeat center;
   position: relative;
+  overflow: hidden;
 }
 .location p{
   color: #fafafa;
   font-size: 30px;
 }
-.location .dosan p{transform: translate(770px, 570px);}
-.location .dosan img{transform: translate(770px, 490px);}
-.location .sinsa p{transform: translate(650px, 500px);}
-.location .sinsa img{transform: translate(720px, 420px);}
-.location .seongsu p{transform: translate(815px, 340px);}
-.location .seongsu img{transform: translate(805px, 260px);}
 
+/* 위치서열 */
+.location .dosan .ds-location{z-index: 1;}
+.location .sinsa .si-location{z-index: 2;}
+.location .seongsu .se-location{z-index: 3;}
+.ds-caption{z-index: 4;}
+.si-caption{z-index: 5;}
+.se-caption{z-index: 6;}
+
+.location .dosan .ds-loc,
+.location .sinsa .si-loc,
+.location .seongsu .se-loc{
+  width: 25px;
+  height: 36px;
+  background: url(../image/location_icon.png) no-repeat;
+  background-size: cover;
+}
+.location p{
+  width: max-content;
+}
+.location .dosan p{transform: translate(770px, 570px);}
+.location .dosan .ds-loc{transform: translate(770px, 490px);}
+.location .sinsa p{transform: translate(650px, 500px);}
+.location .sinsa .si-loc{transform: translate(720px, 420px);}
+.location .seongsu p{transform: translate(815px, 340px);}
+.location .seongsu .se-loc{transform: translate(805px, 260px);}
+
+/* 지도 호버효과 */
+.ds-location:hover p,
+.si-location:hover p,
+.se-location:hover p{color: #CEFF71;}
+.ds-location:hover .ds-loc,
+.si-location:hover .si-loc,
+.se-location:hover .se-loc{
+  background-image: url(../image/location_icon_fill.png);
+}
+
+/* 스토어 상세뷰 */
 .ds-caption,
 .si-caption,
 .se-caption{
   width: 1280px;
-  height: 933px;
+  height: 921px;
   background-color: rgba(255,255,255,0.5);
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 943px;
+  transition: 0.35s;
 }
+/* 호버하면 스토어 상세뷰 보이기 */
+.dosan:hover .ds-caption{
+  top: 0;
+  transition-delay: 0.8s;
+}
+.sinsa:hover .si-caption{
+  top: 0;
+  transition-delay: 0.8s;
+}
+.seongsu:hover .se-caption{
+  top: 0;
+  transition-delay: 0.8s;
+}
+
 .ds-caption-inner,
 .si-caption-inner,
 .se-caption-inner{
   background-color: #A4A84E;
   width: 1073px;
-  height: 935px;
+  height: 922px;
   border: 2px solid #121212;
-  border-top: none;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -313,18 +355,6 @@ h2 p{
   color: #121212;
   font-size: 24px;
 }
-.ds-caption-inner .contents .add,
-.si-caption-inner .contents .add,
-.se-caption-inner .contents .add{
-  margin: 30px 0 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.ds-caption-inner .contents .sub{margin: 0 0 0 167px;}
-.si-caption-inner .contents .sub{margin: 0 0 0 147px;}
-.se-caption-inner .contents .sub{margin: 0 0 0 172px;}
-
 .ds-caption-inner .contents .sub-title,
 .si-caption-inner .contents .sub-title,
 .se-caption-inner .contents .sub-title{display: inline-block;}
@@ -336,10 +366,34 @@ h2 p{
   margin: 0 0 0 28px;
 }
 
-.ds-caption-inner .contents .str-btn{margin: 0 0 0 167px;}
-.si-caption-inner .contents .str-btn{margin: 0 0 0 147px;}
-.se-caption-inner .contents .str-btn{margin: 0 0 0 172px;}
+/* 도산 상세뷰 문구 위치정렬 */
+.ds-caption-inner .contents .add,
+.ds-caption-inner .contents .sub{
+  position: absolute;
+  left: -625px;
+}
+.ds-caption-inner .contents .add{top: 80px;}
+.ds-caption-inner .contents .sub{top: 130px;}
 
+/* 신사 상세뷰 문구 위치정렬 */
+.si-caption-inner .contents .add,
+.si-caption-inner .contents .sub{
+  position: absolute;
+  left: -525px;
+}
+.si-caption-inner .contents .add{top: 150px;}
+.si-caption-inner .contents .sub{top: 200px;}
+
+/* 성수 상세뷰 문구 위치정렬 */
+.se-caption-inner .contents .add,
+.se-caption-inner .contents .sub{
+  position: absolute;
+  left: -665px;
+}
+.se-caption-inner .contents .add{top: 310px;}
+.se-caption-inner .contents .sub{top: 360px;}
+
+/* 도산, 신사, 성수 버튼 */
 .ds-caption-inner .contents .str-btn a,
 .si-caption-inner .contents .str-btn a,
 .se-caption-inner .contents .str-btn a{
@@ -347,14 +401,44 @@ h2 p{
   color: #fafafa;
   background-color: #121212;
   padding: 5px 35px 10px;
+  border: 2px solid #121212;
   border-radius: 50px;
   margin: 24px 0;
   display: inline-block;
+  transition: 0.2s;
 }
 
 .ds-caption-inner .contents .str-btn a:nth-of-type(2),
 .si-caption-inner .contents .str-btn a:nth-of-type(2),
-.se-caption-inner .contents .str-btn a:nth-of-type(2){margin-left: 30px;}
+.se-caption-inner .contents .str-btn a:nth-of-type(2)
+{margin-left: 30px;}
+
+.ds-caption-inner .contents .str-btn{
+  position: absolute;
+  top: 775px;
+  left: -20px;
+  margin: 0 0 0 167px;
+}
+.si-caption-inner .contents .str-btn{
+  position: absolute;
+  top: 775px;
+  left: -20px;
+  margin: 0 0 0 147px;
+}
+.se-caption-inner .contents .str-btn{
+  position: absolute;
+  top: 775px;
+  left: -20px;
+  margin: 0 0 0 172px;
+}
+
+/* 버튼 호버효과 */
+.ds-caption .str-btn a:hover,
+.si-caption .str-btn a:hover,
+.se-caption .str-btn a:hover{
+  color: #983332;
+  background-color: #CEFF71;
+}
 
 /* 섹션2_______________________________ */
 #s2{
@@ -404,6 +488,7 @@ h2 p{
 .banner-slide .row2 .row-inner{
   left: -1875px;
   animation: row2-ani 10s linear infinite alternate;
+  border-bottom: 1px solid #121212;
 }
 .banner-slide:hover .row-inner{
   animation-play-state: paused;
@@ -435,8 +520,16 @@ h2 p{
   color: #fafafa;
   background-color: #121212;
   padding: 5px 40px 10px;
+  border: 2px solid #121212;
   border-radius: 50px;
+  transition: 0.2s;
 }
+/* 버튼 호버효과 */
+.s2-inner .me-caption a:hover{
+  color: #983332;
+  background-color: #CEFF71;
+}
+
 
 /* 섹션3_______________________________ */
 #s3{
@@ -448,12 +541,43 @@ h2 p{
 .s3-inner{
   width: inherit;
   height: 896px;
-  margin: 0 auto -2px auto;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.s3-inner img{display: block;}
+.jennie-main,
+.newjeans-main,
+.croissant-main{
+  display: inline-block;
+  margin-right: -6px;
+}
+.jennie{
+  width: 387px;
+  height: 628px;
+  object-fit: cover;
+  background: url(../image/jennie.png) no-repeat;
+  background-size: cover;
+  transition: 0.35s;
+}
+.newjeans{
+  width: 387px;
+  height: 628px;
+  background: url(../image/newjeans.png) no-repeat;
+  background-size: cover;
+  transition: 0.35s;
+}
+.croissant{
+  width: 387px;
+  height: 628px;
+  background: url(../image/croissant.png) no-repeat;
+  background-size: cover;
+  transition: 0.35s;
+}
+/* 이미지 호버효과 */
+.jennie-main .jennie:hover{background-image: url(../image/jennie_back.png);}
+.newjeans-main .newjeans:hover{background-image: url(../image/newjeans_back.png);}
+.croissant-main .croissant:hover{background-image: url(../image/croissant_back.png);}
+
 .s3-inner h3{
   font-size: 30px;
   text-align: center;
@@ -470,8 +594,16 @@ h2 p{
   color: #fafafa;
   background-color: #121212;
   padding: 5px 35px 10px;
+  border: 2px solid #121212;
   border-radius: 50px;
+  transition: 0.2s;
 }
+/* 버튼 호버효과 */
+.s3-inner a:hover{
+  color: #983332;
+  background-color: #CEFF71;
+}
+
 
 /* 섹션4_______________________________ */
 #s4{
@@ -494,41 +626,49 @@ h2 p{
   width: 1034px;
   font-size: 30px;
   position: absolute;
-  top: 40px;
+  top: 50px;
   left: 50%;
   transform: translateX(-50%);
 }
 .s4-inner .official-insta,
 .s4-inner .studio-insta,
 .s4-inner .kakao,
-.s4-inner .youtube{
-  /* border-top: 2px solid #121212;
-  width: 100%;
-  height: 80px; */
-  position: absolute;
-}
-.bd1{
-  border: 2px solid #121212;
+.s4-inner .youtube{position: absolute;}
+
+.bd0{
+  border: 1.5px solid #121212;
   width: 1280px;
+  transform: translateY(-34px);
 }
 .s4-inner .official-insta{
-  bottom: 280px;
+  bottom: 247px;
   left: 200px;
 }
-.bd2{
-  border: 2px solid #121212;
+.bd1{
+  border: 1.5px solid #121212;
   width: 1280px;
+  transform: translateY(36px);
 }
 .s4-inner .studio-insta{
-  bottom: 200px;
+  bottom: 173px;
   left: 320px;
 }
+.bd2{
+  border: 1.5px solid #121212;
+  width: 1280px;
+  transform: translateY(106px);
+}
 .s4-inner .kakao{
-  bottom: 120px;
+  bottom: 99px;
   left: 610px;
 }
+.bd3{
+  border: 1.5px solid #121212;
+  width: 1280px;
+  transform: translateY(176px);
+}
 .s4-inner .youtube{
-  bottom: 40px;
+  bottom: 27px;
   left: 410px;
 }
 
@@ -536,7 +676,12 @@ h2 p{
 .s4-inner img{
   transform: translateY(13px);
   margin-left: 15px;
+  transition: 0.2s;
+  cursor: pointer;
 }
+/* 버튼 호버효과 */
+.s4-inner img:hover{background-image: url(../image/arrow_fill.png);}
+
 
 /* 푸터________________________________ */
 footer{
