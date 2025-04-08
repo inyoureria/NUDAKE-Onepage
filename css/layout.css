@@ -47,6 +47,7 @@ header{
   font-size: 28px;
   color: #121212;
 }
+
 .searchreal{
   color: #6D6D6D;
   background-color: #fafafa;
@@ -225,7 +226,8 @@ h2{
   padding: 0 50px 0 50px;
   font-size: 80px;
 }
-h2 p{
+h2 em{
+  font-style: normal;
   font-size: 70px;
   align-self: flex-end;
 }
@@ -685,7 +687,7 @@ h2 p{
 
 /* 푸터________________________________ */
 footer{
-  width: 100vm;
+  width: 100vw;
   height: 500px;
   text-align: center;
   background-color: #121212;
